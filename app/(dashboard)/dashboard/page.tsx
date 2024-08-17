@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
@@ -99,15 +100,16 @@ export default function Page() {
       </div>
       <div className='w-1/2 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
         <form
-          className='w-full dark:bg-black rounded-md'
+          className='w-full dark:bg-black rounded-xl flex items-center'
           onSubmit={(e) => onSubmitHandler(e)}
         >
           <Input
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder='Please ask your query'
-            className='w-full shadow-xl p-3 h-16 placeholder:text-base'
+            placeholder='Message AbbasAI'
+            className='w-full shadow-xl p-3 px-7 h-16 outline-none border-none placeholder:text-base rounded-xl focus:outline-none focus:ring-0 focus:border-none'
           />
+          <IconArrowBadgeUpFilled className='w-8 h-8' />
         </form>
       </div>
     </div>
