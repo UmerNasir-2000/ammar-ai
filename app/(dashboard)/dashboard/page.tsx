@@ -80,23 +80,34 @@ export default function Page() {
       <div className='flex-grow p-4 overflow-auto space-y-4'>
         {!!sequence.length ? (
           sequence.map(({ query, response }, index) => (
-            <div>
-              <div className='flex mb-2 gap-x-2'>
-                <IconBookmarkAi />
-                Abbas AI
+            <div className='space-y-2' key={index}>
+              <div className='flex justify-start'>
+                <div>
+                  <div className='mb-2'>Umer Saleem</div>
+                  <Card className='w-3/4 text-justify max-h-96 border-2 p-3 overflow-scroll gap-2'>
+                    <CardContent className='flex flex-col items-center justify-center'>
+                      {query}
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
-              <Card
-                key={index}
-                className='max-w-4xl text-justify max-h-96 border-2 p-3 overflow-scroll gap-2'
-              >
-                <CardContent className='flex flex-col items-center justify-center'>
-                  <TypeAnimation
-                    sequence={[response, 1000]}
-                    speed={80}
-                    cursor={false}
-                  />
-                </CardContent>
-              </Card>
+              <div className='flex justify-end'>
+                <div>
+                  <div className='flex mb-2 gap-x-2'>
+                    <IconBookmarkAi />
+                    Abbas AI
+                  </div>
+                  <Card className='w-3/4 text-justify max-h-96 border-2 p-3 overflow-scroll gap-2'>
+                    <CardContent className='flex flex-col items-center justify-center'>
+                      <TypeAnimation
+                        sequence={[response, 1000]}
+                        speed={80}
+                        cursor={false}
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
           ))
         ) : (

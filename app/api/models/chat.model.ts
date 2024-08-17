@@ -17,7 +17,6 @@ const ChatSchema: Schema = new Schema(
   }
 );
 
-// Create the model
-const Chat = mongoose.model<IChat>('Chat', ChatSchema);
+const Chat = mongoose.models.Chat || mongoose.model<IChat>('Chat', ChatSchema);
 
 export default Chat;
