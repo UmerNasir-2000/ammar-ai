@@ -86,7 +86,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
       </Sidebar>
       <div className='flex flex-col w-full'>
         <header className='flex items-center justify-between py-3 px-7'>
-          <h2>Ask Your Doubts</h2>
+          <h2>Abbas AI</h2>
           <ModeToggle />
         </header>
         <main className='py-4 px-7'>{children}</main>
