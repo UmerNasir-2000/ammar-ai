@@ -93,7 +93,7 @@ export default function Page() {
 
   return (
     <div className='flex flex-col h-screen items-center'>
-      <div className='flex-grow p-4 overflow-scroll space-y-4 w-3/4 h-[100px]'>
+      <div className='flex-grow p-4 overflow-scroll space-y-4 w-3/4 max-h-[700px]'>
         {!!sequence.length ? (
           sequence.map(({ query, response }, index) => (
             <div className='space-y-2' key={index}>
