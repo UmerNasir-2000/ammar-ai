@@ -1,6 +1,6 @@
 'use client';
 
-import { Logo, LogoIcon } from '@/components/logo';
+import { Logo } from '@/components/logo';
 import ModeToggle from '@/components/themeToggle';
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
