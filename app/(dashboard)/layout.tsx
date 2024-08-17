@@ -56,7 +56,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className='justify-between gap-10'>
+        <SidebarBody className='justify-between gap-10 bg-stone-200 dark:bg-black'>
           <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
             {open ? <Logo /> : <IconBookmarkAi />}
             <div className='mt-8 flex flex-col gap-2'>
@@ -84,8 +84,13 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
           </div>
         </SidebarBody>
       </Sidebar>
-      <ModeToggle />
-      <main className='p-4'>{children}</main>
+      <div className='flex flex-col w-full'>
+        <header className='flex items-center justify-between py-3 px-7'>
+          <h2>Ask Your Doubts</h2>
+          <ModeToggle />
+        </header>
+        <main className='py-4 px-7'>{children}</main>
+      </div>
     </div>
   );
 }
