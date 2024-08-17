@@ -130,7 +130,7 @@ export default function Page() {
           <div>
             <div className='space-y-2 py-6 flex flex-col items-center'>
               <h3 className='text-6xl font-semibold bg-gradient-to-r from-orange-400 via-pink-500 to-red-500 bg-clip-text text-transparent text-left'>
-                Hello
+                Hello, I'm AbbasAI
               </h3>
               <p className='text-xl text-left'>How can I assist you today?</p>
             </div>
