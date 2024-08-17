@@ -7,6 +7,7 @@ import {
   IconAi,
   IconArrowBadgeUpFilled,
   IconBookmarkAi,
+  IconLoader,
 } from '@tabler/icons-react';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
@@ -39,9 +40,11 @@ const macros: Macro[] = [
 export default function Page() {
   const [prompt, setPrompt] = useState('');
   const [sequence, setSequence] = useState<PromptResponse[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const onMacroClickHandler = useCallback(
     async (query: string) => {
+      setLoading(true);
       const response = await fetch('/api/prompt', {
         method: 'POST',
         headers: {
@@ -51,6 +54,7 @@ export default function Page() {
       });
       console.log('query :>> ', query);
       setPrompt(query);
+      setLoading(false);
 
       const data = await response.json();
 
@@ -66,6 +70,7 @@ export default function Page() {
   const onSubmitHandler = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      setLoading(true);
 
       const response = await fetch('/api/prompt', {
         method: 'POST',
@@ -80,6 +85,7 @@ export default function Page() {
       setSequence([...sequence, { query: prompt, response: data.text }]);
 
       setPrompt('');
+      setLoading(false);
     },
     [prompt]
   );
@@ -157,9 +163,13 @@ export default function Page() {
             placeholder='Message AbbasAI'
             className='w-full shadow-xl p-3 px-7 h-16 outline-none border-none placeholder:text-base rounded-xl focus:outline-none focus:ring-0 focus:border-none'
           />
-          <Button variant='link' type='submit' disabled={!prompt.length}>
-            <IconArrowBadgeUpFilled className='w-8 h-8' />
-          </Button>
+          {!loading ? (
+            <Button variant='link' type='submit' disabled={!prompt.length}>
+              <IconArrowBadgeUpFilled className='w-8 h-8' />
+            </Button>
+          ) : (
+            <IconLoader className='w-8 h-8' />
+          )}
         </form>
       </div>
     </div>
