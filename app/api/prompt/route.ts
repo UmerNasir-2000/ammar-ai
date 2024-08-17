@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
+import Chat from '../models/chat.model';
 
 export async function POST(request: Request) {
   const { query } = await request.json();
@@ -21,6 +23,10 @@ export async function POST(request: Request) {
     text?.response?.candidates?.[0]?.content.parts[0].text ?? '';
 
   console.log('responseText :>> ', responseText);
+
+  await mongoose.connect(process.env.CONNECTION_STRING!);
+
+  await Chat.create({ data: { data: text } });
 
   return NextResponse.json({ message: 'Hello, world!', text: responseText });
 }

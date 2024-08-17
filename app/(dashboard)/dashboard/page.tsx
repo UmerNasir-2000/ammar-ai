@@ -126,7 +126,7 @@ export default function Page() {
           </div>
         )}
       </div>
-      <div className='w-1/2 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
+      <div className='w-3/4 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
         <form
           className='w-full dark:bg-black rounded-xl flex items-center pr-4'
           onSubmit={(e) => onSubmitHandler(e)}
