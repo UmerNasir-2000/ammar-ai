@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
@@ -45,7 +46,7 @@ export default function Page() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query: prompt }),
+      body: JSON.stringify({ query }),
     });
 
     const data = await response.json();
@@ -136,7 +137,9 @@ export default function Page() {
             placeholder='Message AbbasAI'
             className='w-full shadow-xl p-3 px-7 h-16 outline-none border-none placeholder:text-base rounded-xl focus:outline-none focus:ring-0 focus:border-none'
           />
-          <IconArrowBadgeUpFilled className='w-8 h-8' />
+          <Button variant='link' type='submit' disabled={!prompt.length}>
+            <IconArrowBadgeUpFilled className='w-8 h-8' />
+          </Button>
         </form>
       </div>
     </div>
