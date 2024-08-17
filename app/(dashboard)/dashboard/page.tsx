@@ -2,7 +2,11 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
+import {
+  IconAi,
+  IconArrowBadgeUpFilled,
+  IconBookmarkAi,
+} from '@tabler/icons-react';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
@@ -35,6 +39,20 @@ export default function Page() {
   const [prompt, setPrompt] = useState('');
   const [sequence, setSequence] = useState<PromptResponse[]>([]);
 
+  const onMacroClickHandler = useCallback(async (query: string) => {
+    const response = await fetch('/api/prompt', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: prompt }),
+    });
+
+    const data = await response.json();
+
+    setSequence([...sequence, { query: prompt, response: data.text }]);
+  }, []);
+
   const onSubmitHandler = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -61,15 +79,23 @@ export default function Page() {
       <div className='flex-grow p-4 overflow-auto space-y-4'>
         {!!sequence.length ? (
           sequence.map(({ query, response }, index) => (
-            <div
-              key={index}
-              className='max-w-4xl text-justify max-h-96 border-red-800 border-2 p-3 overflow-scroll gap-2'
-            >
-              <TypeAnimation
-                sequence={[response, 1000]}
-                speed={80}
-                cursor={false}
-              />
+            <div>
+              <div className='flex mb-2 gap-x-2'>
+                <IconBookmarkAi />
+                Abbas AI
+              </div>
+              <Card
+                key={index}
+                className='max-w-4xl text-justify max-h-96 border-2 p-3 overflow-scroll gap-2'
+              >
+                <CardContent className='flex flex-col items-center justify-center'>
+                  <TypeAnimation
+                    sequence={[response, 1000]}
+                    speed={80}
+                    cursor={false}
+                  />
+                </CardContent>
+              </Card>
             </div>
           ))
         ) : (
@@ -87,6 +113,7 @@ export default function Page() {
                 <Card
                   key={index}
                   className='w-72 dark:bg-zinc-900 flex flex-col justify-between hover:opacity-75 cursor-pointer'
+                  onClick={() => onMacroClickHandler(macro.text)}
                 >
                   <CardHeader className='text-lg'>{macro.title}</CardHeader>
                   <CardContent className='flex justify-center items-center text-sm'>
@@ -100,7 +127,7 @@ export default function Page() {
       </div>
       <div className='w-1/2 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
         <form
-          className='w-full dark:bg-black rounded-xl flex items-center'
+          className='w-full dark:bg-black rounded-xl flex items-center pr-4'
           onSubmit={(e) => onSubmitHandler(e)}
         >
           <Input
