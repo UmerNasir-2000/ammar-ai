@@ -1,5 +1,6 @@
 'use client';
 
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
@@ -9,9 +10,28 @@ interface PromptResponse {
   response: string;
 }
 
+interface Macro {
+  title: string;
+  text: string;
+}
+
+const macros: Macro[] = [
+  {
+    title: 'Need Assistance?',
+    text: 'Tell me what you’re struggling with, and I’ll direct you to the right person or resource.',
+  },
+  {
+    title: 'Trouble Finding the Right Help?',
+    text: 'Share your challenge, and I’ll connect you with a team member who can offer support.',
+  },
+  {
+    title: 'Feeling Bored?',
+    text: "Let's Mingle and Find Your Perfect Buddy!",
+  },
+];
+
 export default function Page() {
   const [prompt, setPrompt] = useState('');
-
   const [sequence, setSequence] = useState<PromptResponse[]>([]);
 
   const onSubmitHandler = useCallback(
@@ -38,7 +58,7 @@ export default function Page() {
   return (
     <div className='flex flex-col h-screen items-center'>
       <div className='flex-grow p-4 overflow-auto space-y-4'>
-        {!!sequence.length &&
+        {!!sequence.length ? (
           sequence.map(({ query, response }, index) => (
             <div
               key={index}
@@ -50,7 +70,32 @@ export default function Page() {
                 cursor={false}
               />
             </div>
-          ))}
+          ))
+        ) : (
+          <div>
+            <div className='space-y-2 py-6 flex flex-col items-center'>
+              <h3 className='text-6xl font-semibold bg-gradient-to-r from-orange-400 via-pink-500 to-red-500 bg-clip-text text-transparent text-left'>
+                Hello
+              </h3>
+              <p className='text-xl text-left'>
+                How can I assist you today, buddy?
+              </p>
+            </div>
+            <div className='flex gap-x-4'>
+              {macros.map((macro, index) => (
+                <Card
+                  key={index}
+                  className='w-72 dark:bg-zinc-900 flex flex-col justify-between hover:opacity-75 cursor-pointer'
+                >
+                  <CardHeader className='text-lg'>{macro.title}</CardHeader>
+                  <CardContent className='flex justify-center items-center text-sm'>
+                    {macro.text}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
       <div className='w-1/2 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
         <form
@@ -61,7 +106,7 @@ export default function Page() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder='Please ask your query'
-            className='w-full shadow-xl p-4 py-6'
+            className='w-full shadow-xl p-3 h-16 placeholder:text-base'
           />
         </form>
       </div>
