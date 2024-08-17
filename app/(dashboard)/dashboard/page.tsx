@@ -40,19 +40,28 @@ export default function Page() {
   const [prompt, setPrompt] = useState('');
   const [sequence, setSequence] = useState<PromptResponse[]>([]);
 
-  const onMacroClickHandler = useCallback(async (query: string) => {
-    const response = await fetch('/api/prompt', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query }),
-    });
+  const onMacroClickHandler = useCallback(
+    async (query: string) => {
+      const response = await fetch('/api/prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+      });
+      console.log('query :>> ', query);
+      setPrompt(query);
 
-    const data = await response.json();
+      const data = await response.json();
 
-    setSequence([...sequence, { query: prompt, response: data.text }]);
-  }, []);
+      console.log('prompt :>> ', prompt);
+
+      setSequence([...sequence, { query: query, response: data.text }]);
+
+      setPrompt('');
+    },
+    [prompt]
+  );
 
   const onSubmitHandler = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
@@ -77,7 +86,7 @@ export default function Page() {
 
   return (
     <div className='flex flex-col h-screen items-center'>
-      <div className='flex-grow p-4 overflow-auto space-y-4'>
+      <div className='flex-grow p-4 overflow-scroll space-y-4 w-3/4 h-[100px]'>
         {!!sequence.length ? (
           sequence.map(({ query, response }, index) => (
             <div className='space-y-2' key={index}>
@@ -120,7 +129,7 @@ export default function Page() {
                 How can I assist you today, buddy?
               </p>
             </div>
-            <div className='flex gap-x-4'>
+            <div className='flex justify-center gap-x-4'>
               {macros.map((macro, index) => (
                 <Card
                   key={index}
