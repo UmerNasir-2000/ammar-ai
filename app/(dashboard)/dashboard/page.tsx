@@ -4,41 +4,53 @@ import { Input } from '@/components/ui/input';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+interface PromptResponse {
+  query: string;
+  response: string;
+}
 
 export default function Page() {
   const [prompt, setPrompt] = useState('');
+
+  const [sequence, setSequence] = useState<PromptResponse[]>([]);
 
   const onSubmitHandler = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      const response = await model.generate({ prompt });
+      const response = await fetch('/api/prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: prompt }),
+      });
 
-      console.log(response.data);
+      const data = await response.json();
+
+      setSequence([...sequence, { query: prompt, response: data.text }]);
+
+      setPrompt('');
     },
     [prompt]
   );
 
   return (
     <div className='flex flex-col h-screen items-center'>
-      <div className='flex-grow p-4 overflow-auto'>
-        <TypeAnimation
-          sequence={[
-            'One', // Types 'One'
-            1000, // Waits 1s
-            'Two', // Deletes 'One' and types 'Two'
-            2000, // Waits 2s
-            'Two Three', // Types 'Three' without deleting 'Two'
-          ]}
-          wrapper='span'
-          cursor={true}
-          style={{ fontSize: '2em', display: 'inline-block' }}
-        />
+      <div className='flex-grow p-4 overflow-auto space-y-4'>
+        {!!sequence.length &&
+          sequence.map(({ query, response }, index) => (
+            <div
+              key={index}
+              className='max-w-4xl text-justify max-h-96 border-red-800 border-2 p-3 overflow-scroll gap-2'
+            >
+              <TypeAnimation
+                sequence={[response, 1000]}
+                speed={80}
+                cursor={false}
+              />
+            </div>
+          ))}
       </div>
       <div className='w-1/2 fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4'>
         <form
