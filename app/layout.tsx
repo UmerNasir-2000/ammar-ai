@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/providers/themeProvider';
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Ammar AI',
+  title: 'Abbas AI',
   description: 'The ultimate coding solution for Conrad Labs.',
 };
 

@@ -24,12 +24,12 @@ interface Macro {
 
 const macros: Macro[] = [
   {
-    title: 'Need Assistance?',
-    text: 'Tell me what you’re struggling with, and I’ll direct you to the right person or resource.',
+    title: 'Need help?',
+    text: `Let's find a solution.`,
   },
   {
     title: 'Trouble Finding the Right Help?',
-    text: 'Share your challenge, and I’ll connect you with a team member who can offer support.',
+    text: 'I can assist.',
   },
   {
     title: 'Feeling Bored?',
