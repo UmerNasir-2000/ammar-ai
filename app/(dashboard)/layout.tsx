@@ -1,6 +1,7 @@
 'use client';
 
 import { Logo, LogoIcon } from '@/components/logo';
+import ModeToggle from '@/components/themeToggle';
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import {
@@ -83,6 +84,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
           </div>
         </SidebarBody>
       </Sidebar>
+      <ModeToggle />
       <main className='p-4'>{children}</main>
     </div>
   );
