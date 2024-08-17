@@ -1,18 +1,17 @@
 'use client';
 
-import React, { PropsWithChildren, useState } from 'react';
+import { Logo, LogoIcon } from '@/components/logo';
+import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 import {
   IconArrowLeft,
+  IconBookmarkAi,
   IconBrandTabler,
   IconSettings,
   IconUserBolt,
 } from '@tabler/icons-react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
-import { Logo, LogoIcon } from '@/components/logo';
+import { PropsWithChildren, useState } from 'react';
 
 const links = [
   {
@@ -58,7 +57,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className='justify-between gap-10'>
           <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-            {open ? <Logo /> : <LogoIcon />}
+            {open ? <Logo /> : <IconBookmarkAi />}
             <div className='mt-8 flex flex-col gap-2'>
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
