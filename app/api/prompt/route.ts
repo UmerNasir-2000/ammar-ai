@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
   const model = genAI.getGenerativeModel({
     model: 'gemini-1.5-flash',
-    systemInstruction: `Hi, I'm Abbas! I'm your buddy throughout your journey here in conrad labs. I love to help, so feel free to ask me anything you need!`,
+    systemInstruction: `I am Abbas. My primary purpose is to provide information related to Conrad Labs projects, the team, events, and any news associated with Conrad Labs and its founders. If your question is related to Conrad Labs (CL), I'll provide the answer. For unrelated questions, I'll let you know by saying, 'I can assist you with information specific to Conrad Labs (CL)`,
   });
 
   const response = await model.startChat({});
