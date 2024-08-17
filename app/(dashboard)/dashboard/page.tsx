@@ -8,6 +8,7 @@ import {
   IconArrowBadgeUpFilled,
   IconBookmarkAi,
   IconLoader,
+  IconLoader2,
 } from '@tabler/icons-react';
 import { FormEvent, useCallback, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
@@ -131,9 +132,7 @@ export default function Page() {
               <h3 className='text-6xl font-semibold bg-gradient-to-r from-orange-400 via-pink-500 to-red-500 bg-clip-text text-transparent text-left'>
                 Hello
               </h3>
-              <p className='text-xl text-left'>
-                How can I assist you today, buddy?
-              </p>
+              <p className='text-xl text-left'>How can I assist you today?</p>
             </div>
             <div className='flex justify-center gap-x-4'>
               {macros.map((macro, index) => (
@@ -143,7 +142,7 @@ export default function Page() {
                   onClick={() => onMacroClickHandler(macro.text)}
                 >
                   <CardHeader className='text-lg'>{macro.title}</CardHeader>
-                  <CardContent className='flex justify-center items-center text-sm'>
+                  <CardContent className='flex justify-start items-center text-sm'>
                     {macro.text}
                   </CardContent>
                 </Card>
@@ -168,7 +167,7 @@ export default function Page() {
               <IconArrowBadgeUpFilled className='w-8 h-8' />
             </Button>
           ) : (
-            <IconLoader className='w-8 h-8' />
+            <IconLoader2 className='w-8 h-8 animate-spin' />
           )}
         </form>
       </div>
